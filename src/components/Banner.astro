@@ -1,5 +1,5 @@
 <header>
-    <img src="/Captura.PNG" alt="Banner Image"/>
+    <img src="/Banner.png" alt="Banner Image"/>
 </header>
 <style>
 header {
@@ -9,3 +9,11 @@ header {
     justify-content: center;
 }
 </style>
+
+<script>
+    const banner = document.querySelector('header img');
+
+    banner?.addEventListener('click', () => {
+        window.location.href = 'https://www.google.com';
+    });
+</script>

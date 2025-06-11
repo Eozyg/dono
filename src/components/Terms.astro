@@ -8,20 +8,26 @@
   <p>
     El acceso a este servicio lo tienes bloqueado actualmente. Si haces clic en Continuar activas el acceso a este servicio de suscripción y aceptas:
   </p>
-  <p>
-    <a href="#">Términos y Condiciones</a><br>
+  <div id="terms-container">
+    <a href="#">Términos y Condiciones</a>
     <a href="#">Política de Datos y Privacidad</a>
-  </p>
+  </div>
 </div>
 <style>
 .subscription-box {
-  font-family: Arial, sans-serif;
   text-align: center;
   color: #333;
   padding: 20px;
   border-radius: 10px;
   max-width: 400px;
   margin: auto;
+}
+
+#terms-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .subscription-box h3 {
