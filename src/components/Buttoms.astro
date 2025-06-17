@@ -1,10 +1,47 @@
 <div id="buttonConteiner">
     <div id="buttonCancel">
-        <button class="buttonCancel" >Cancelar</button>
-        <button class="buttonSubmit" type="submit">Aceptar Y Suscribir</button>
+        <button class="buttonCancel">Cancelar</button>
+        <button class="buttonSubmit">Aceptar Y Suscribir</button>
+        <button class="buttonAccess">Continuar</button>
     </div>
 </div>
+<div id="loader" style="display: none; text-align: center; margin-top: 20px;">
+    <svg width="60" height="60" viewBox="0 0 50 50">
+        <circle cx="25" cy="25" r="20" fill="none" stroke="#ff0077" stroke-width="5" stroke-linecap="round" stroke-dasharray="90,150" stroke-dashoffset="0">
+            <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/>
+        </circle>
+    </svg>
+    <p>Cargando...</p>
+</div>
+<div id="clickCount">
+    <p>Hiciste click <strong>0</strong> veces!</p>
+</div>
+
+<div id='accessBox'>
+    <h3>¡Acceso concedido!</h3>
+    <p>Disfruta de tu suscripción semanal.</p>
+    <p>Recuerda que puedes cancelar en cualquier momento.</p>
+    <p>Gracias por tu confianza.</p>
+</div>
+
 <style>
+#loader svg {
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+@keyframes spin {
+    100% { transform: rotate(360deg);}
+}
+</style>
+
+<style>
+#clickCount {
+    text-align: center;
+    color: #333;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
+}
 #buttonConteiner {
     display: flex;
     justify-content: center;
@@ -44,5 +81,85 @@
     font-size: 25px;
     font-weight: bold;
 }
+.buttonAccess {
+    background-color: #00000092; 
+    color: rgb(255, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    display: none;
+}
+#accessBox {
+    text-align: center;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
+    display: none; /* Initially hidden */
+}
+.loading{
+    pointer-events: none;
+    opacity: 0.5;   
 
+}
 </style>
+
+<script>
+const buttonCancel = document.querySelector('.buttonCancel');
+const buttonSubmit = document.querySelector('.buttonSubmit');
+const subscriptionBoxH3 = document.querySelector('.subscription-box h3');
+const clicks = document.querySelector('#clickCount strong');
+const banner = document.querySelector('header img');
+const subscriptionBox = document.querySelector('.subscription-box');
+const buttonAccess = document.querySelector('.buttonAccess');
+
+let clickCount = 0;
+
+buttonCancel?.addEventListener('click', () => {
+
+    if(clickCount >= 1){
+        clickCount--;
+    }
+    clicks.textContent = clickCount;
+    if(clickCount <= 9){
+        banner.src = '/Captura.PNG';
+    }
+});
+
+buttonSubmit?.addEventListener('click', () => {
+    subscriptionBoxH3.textContent = '¡SUBSCRIPCION COMPLETADA!';
+    subscriptionBoxH3.style.color = '#ff0077';
+
+    clickCount++;
+    clicks.textContent = clickCount;
+    if(clickCount >= 10){
+        banner.src = '/teper.jpg';
+    }
+        if (clickCount >= 15) {
+         subscriptionBox.style.display = 'none';
+         banner.src = 'Banner.png';
+         buttonCancel.style.display = 'none';
+         buttonSubmit.style.display = 'none';
+         buttonAccess.style.display = 'block';
+         accessBox.style.display = 'block';
+         
+         
+        }
+});     
+buttonAccess.addEventListener('click', () => {
+            buttonAccess.classList.add('loading');
+            buttonAccess.textContent = 'Cargando...';
+            document.querySelector('#loader').style.display = 'block';
+            setTimeout(() => {
+                buttonAccess.classList.remove('loading');
+                document.querySelector('#loader').style.display = 'none';
+                buttonAccess.innerHTML = 'Continuar';   
+                window.location.reload();
+            }, 6000); 
+        });
+    
+</script>
